@@ -22,6 +22,10 @@ No discount - 2nd class: 52, No discount - 1st class: 88, Half-fare - 2nd class:
 - Higher prices (closer to travel date):
 No discount - 2nd class: 88, No discount - 1st class: 148, Half-fare - 2nd class: 59, Half-fare - 1st class: 99
 
+<p align="center">
+  <img src="response_sample.png" width="450" title="Sample Response for /monitor command">
+</p>
+
 ### Features
 - Check availability for specific date ranges
 - Monitor availability and receive updates every 24 hours
