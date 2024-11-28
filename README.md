@@ -11,7 +11,7 @@ The `sbb-scraper` project is designed to notify people of the latest promotions 
 ## Commune Saver Day Pass Monitor Bot
 
 ### Overview
-The Commune Saver Day Pass Monitor Bot is a Telegram bot that monitors the availability of SBB day passes and notifies users of any changes. Users can set up monitoring for specific date ranges and receive updates every 24 hours.
+The Commune Saver Day Pass Monitor Bot is a Telegram bot that monitors the availability of [SBB commune day passes](https://www.cartejournaliere-commune.ch/en#terms) and notifies users of any changes. Users can set up monitoring for specific date ranges and receive updates every 24 hours.
 
 The SBB Commune Saver Day Pass offers discounted prices when purchased in advance. The pass is available at lower prices 6 months to 10 days before travel, with prices increasing depending on availability. The bot helps track these price fluctuations, ensuring you get the best deal.
 
