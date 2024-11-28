@@ -1,0 +1,9 @@
+APScheduler
+beautifulsoup4
+numpy
+pandas
+pip-tools
+python-dotenv
+python-telegram-bot
+requests
+pytest
