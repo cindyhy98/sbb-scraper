@@ -48,7 +48,7 @@ No discount - 2nd class: 88, No discount - 1st class: 148, Half-fare - 2nd class
 
 2. Create and activate a virtual environment:
     ```sh
-    python -m venv venv
+    python3 -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
     ```
 
