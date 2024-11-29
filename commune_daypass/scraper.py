@@ -99,7 +99,12 @@ def catch_abnormal_data(data):
 
     for entry in data:
         travel_date = datetime.strptime(entry["travelDate"], "%Y-%m-%dT%H:%M:%S.%fZ")
-        prices_dict = entry["prices"]
+        try:
+            prices_dict = entry["prices"]
+        except KeyError:
+            logging.error("This entry does not contain prices data, the tickets are sold out for this date")
+
+            continue
 
         # Determine normal prices and availability based on the date
         normal_prices = (
@@ -120,6 +125,14 @@ def catch_abnormal_data(data):
         # Compare prices and availability, catch abnormalities
         for i, (key, class_type, details) in enumerate(flattened_data):
             expected_price = normal_prices[i]
+
+            # deal with the case where the entry is sold out, i.e. details is None
+            if not details:
+                actual_price = None
+                actual_availability = "S"
+                abnormal_data.append(format_abnormal_entry(entry["travelDate"], key, class_type, {"price": 0, "availability": "S"}))
+                continue
+
             actual_price = details["price"]
             actual_availability = details["availability"]
 
@@ -133,15 +146,15 @@ def catch_abnormal_data(data):
 # Example usage (for testing purposes)
 if __name__ == "__main__":
     start_date = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
-    days_to_check = 10
+    days_to_check = 3
     result = get_availability(start_date, days_to_check)
 
-    if result:
-        # use logging
-        logging.info("Availability Data:")
-        logging.info(json.dumps(result, indent=2))
-    else:
-        logging.error("Failed to fetch availability data.")
+    # if result:
+    #     # use logging
+    #     logging.info("Availability Data:")
+    #     logging.info(json.dumps(result, indent=2))
+    # else:
+    #     logging.error("Failed to fetch availability data.")
 
     if result:
         abnormal_data = catch_abnormal_data(result)

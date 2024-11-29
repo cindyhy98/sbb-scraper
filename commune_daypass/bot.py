@@ -3,7 +3,8 @@ import re
 import logging
 import signal
 
-from telegram import Update
+from telegram import Update, Bot
+from telegram.error import TelegramError
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes
 from datetime import datetime, timedelta
 from scraper import get_availability, catch_abnormal_data
@@ -51,9 +52,14 @@ def format_for_telegram(data):
         # Helper function to format class information for Telegram.
         if not class_data:
             return None
-        availability = (
-            "High Availability" if class_data['availability'] in ['A', 'D'] else "Limited Availability"
-        )
+
+        if class_data['availability'] in ['S']:
+            availability = "Sold out"
+        elif class_data['availability'] in ['A', 'D']:
+            availability = "High Availability"
+        else:   
+            availability = "Limited Availability"
+        
         return f"CHF {int(class_data['price'] / 100)} | {availability}"
 
     message = ""
@@ -105,7 +111,7 @@ async def check(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     start_date = context.args[0]
     if not validate_date(start_date):
-        await send_markdown_reply(update, "Invalid date format. Please enter date in YYYY-MM-DD format and make sure it is after today.")
+        await send_markdown_reply(update, "Invalid date format.\nPlease enter date in YYYY-MM-DD format and make sure it is after today.")
         return
 
     try:
